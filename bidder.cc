@@ -15,18 +15,20 @@
 // containing the names of everyone on your team.
 std::vector<std::string> GetTeamMembers() {
   // Your code here
-  std::cout << "Harry,Randy";
-  return GetTeamMembers;
+  return {
+    "Harry, Randy"
+  };
 }
 
 // TODO: Implement this function to return a string that describes
 // the strategy your logic uses to bid (e.g., "We bid high early on").
 std::string GetStrategy() {
   // Your code here
-  std::cout << "From our viewpoints, we find the idea of going all in on one round and securing
-  one round particulary pleasing. As a result, we are putting our budget all in one round, specifically, round seven 
-  as we are predicting that no one else will bid during that round.\n";
-  return GetStrategy;
+
+  return { "From our viewpoints, we find the idea of going all in on one round and securing"
+  "one round particulary pleasing. As a result, we are putting our budget all in one round, specifically, round seven "
+  "as we are predicting that no one else will bid during that round"
+  };
 }
 
 // TODO: Implement the bidding logic.
@@ -45,17 +47,26 @@ std::string GetStrategy() {
 //   - The sum of all bids must not exceed 'budget'.
 //   - Bids must be non-negative integers.
 void GenerateBids(int rounds, int budget, std::string output_filename) {
-  int bid = 0;
-  for (int i = 0; i < rounds; i++){
-   if ( i == 7 ) {
-     bid = budget; 
- } else {
-  return bid;
- }
-  // Your code here
-}
-}
+ std::ofstream out(output_filename);
+    if (!out.is_open()) {
+        std::cerr << "Error: Could not open file.\n";
+        return;
+    }
+    bool has_round6{(rounds > 6)};
+  
+   for (int i = 0; i < rounds; ++i) {
+        int bid = 0;
 
+        if (has_round6 && i == 5) {   
+            bid = budget;            
+        }
+
+      out << bid << "\n";
+    }
+
+    out.close();
+
+  }
 // ============================================================================
 // MAIN FUNCTION
 // Use this to test your code.
@@ -65,6 +76,6 @@ int main() {
   // You can write code here to call your functions and see if they work.
   // Example:
   // GenerateBids(10, 100, "test_output.txt");
-  
-  return GenerateBids;
+    GenerateBids(10, 100, "test_output.txt");
+    return 0;
 }
